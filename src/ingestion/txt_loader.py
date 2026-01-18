@@ -1,7 +1,7 @@
 from .base_loader import BaseLoader
 
 class TXTLoader(BaseLoader):
-    def load(self):
+    def load_impl(self):
         with open(self.path, encoding="utf-8") as f:
             return [{
                 "text": f.read(),

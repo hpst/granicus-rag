@@ -1,19 +1,22 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from pydantic import BaseModel
 from src.retrieval.grounded_qa import GroundedQASystem
 from src.vectordb.chroma_store import ChromaStore
 from src.ingestion.ingest_all import ingest_data
 
-app = FastAPI()
 qa = GroundedQASystem()
 store = ChromaStore()
 
 class ChatRequest(BaseModel):
     question: str
 
-@app.on_event("startup")
-def startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     ingest_data()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 @app.post("/chat")
 def chat(req: ChatRequest):

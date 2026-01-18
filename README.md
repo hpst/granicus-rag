@@ -56,7 +56,16 @@ docker run --name granicus-api -p 8000:8000 -v $(pwd)/data:/data granicus-rag
 - Click Execute
 
 
+## How To Run (DEV)
 
+```bash
+python standalone_rag.py
+```
+
+## Testing
+```bash
+python -m pytest tests/ -v
+```
 
 
 

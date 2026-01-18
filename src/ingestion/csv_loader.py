@@ -2,7 +2,7 @@ import pandas as pd
 from .base_loader import BaseLoader
 
 class CSVLoader(BaseLoader):
-    def load(self):
+    def load_impl(self):
         df = pd.read_csv(self.path)
         docs = []
         for i, row in df.iterrows():

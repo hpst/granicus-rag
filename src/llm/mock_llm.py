@@ -2,6 +2,7 @@ import math
 
 class MockLLM:
     def generate(self, question, context):
+        # print(context, "<<< context in MockLLM")
         if not context:
             return {
                 "answer": "I don’t have sufficient information in the provided documents.",

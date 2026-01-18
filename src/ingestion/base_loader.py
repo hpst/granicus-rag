@@ -5,5 +5,17 @@ class BaseLoader(ABC):
         self.path = path
 
     @abstractmethod
-    def load(self) -> list[dict]:
+    def load_impl(self) -> list[dict]:
         pass
+    def load(self) -> list[dict]:
+        try:
+            return self.load_impl()
+        except Exception as e:
+            return [{
+                "text": "",
+                "metadata": {
+                    "source": self.path,
+                    "status": "failed",
+                    "error": str(e)
+                }
+            }]

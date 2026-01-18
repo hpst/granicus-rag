@@ -33,13 +33,15 @@ def ingest_data(data_dir="data"):
         loader = LOADERS[ext](path)
         docs = loader.load()
 
+        if docs[0]["metadata"].get("status") == "failed":
+            print(file, " - failed to load or file currupted: ", docs[0]["metadata"].get("error"))
+            continue
+
         for d in docs:
-            if d["metadata"].get("status") == "failed":
-                continue
             for chunk in chunker.chunk(d["text"]):
                 texts.append(chunk)
                 metas.append(d["metadata"])
                 ids.append(str(uuid.uuid4()))
-
+        print(f"{file} - Ingested {len(docs)} documents.")
     if texts:
         store.add(ids, embedder.embed(texts), texts, metas)
