@@ -54,7 +54,16 @@ docker run --name granicus-api -p 8000:8000 -v $(pwd)/data:/data granicus-rag
 }
 ```
 - Click Execute
-
+- From terminal
+```bash
+curl -X 'POST' \
+  'http://localhost:8000/chat' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "question": "What products does Granicus offer?"
+}'
+```
 
 ## How To Run (DEV)
 
