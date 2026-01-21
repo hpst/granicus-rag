@@ -42,7 +42,7 @@ docker build -t granicus-rag .
 ## How To Run
 - Start Docker
 ```bash
-docker run --name granicus-api -p 8000:8000 -v $(pwd)/data:/data granicus-rag
+docker run --name granicus-api -p 8000:8000 -v $(pwd)/data:/data -v $(pwd)/models:/models -e USE_LOCAL_LLM=true -e MODEL_CACHE_DIR=./models granicus-rag
 ```
 - go to http://localhost:8000/docs
 - Click POST /chat
@@ -70,6 +70,10 @@ curl -X 'POST' \
 ```bash
 python standalone_rag.py
 ```
+NOTE: Environmental variables can be set in export.sh file
+- USE_LOCAL_LLM -> true if want to use real LLM for answer generation.
+- MODEL_CACHE_DIR -> path to folder where you want to save embedding and LLM models.
+
 
 ## Testing
 ```bash
